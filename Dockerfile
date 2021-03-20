@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER Chinna "kanakanti98@gmail.com"
+MAINTAINER Shiva
 USER root
 RUN yum update -y
 #RUN yum install nginx -y
