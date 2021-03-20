@@ -1,8 +1,10 @@
-FROM ubuntu
-MAINTAINER Kyle Mathews "kanakanti98@gmail.com"
+FROM centos:7
+MAINTAINER Chinna "kanakanti98@gmail.com"
 USER root
-RUN apt-get update
-RUN apt-get install nginx -y
+RUN yum update -y
+#RUN yum install nginx -y
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install nginx
 RUN rm /etc/nginx/nginx.conf /etc/nginx/mime.types
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY basic.conf /etc/nginx/basic.conf
@@ -17,6 +19,8 @@ COPY location /etc/nginx/location
 EXPOSE 80 443
 
 COPY script.sh /script.sh
+RUN yum install net-tools -y
+RUN systemctl restart nginx
 
 #ENTRYPOINT ["bash", "/script.sh"]
-CMD ls && service nginx restart && /bin/bash
+CMD ls && /bin/bash
